@@ -48,7 +48,7 @@ CREATE TABLE category (
     updatedBy VARCHAR(255) NULL
 );
 
-ALTER TABLE news ADD CONSTRAINT fk_news_category FOREIGN KEY (categoryId) REFERENCES role(id);
+ALTER TABLE news ADD CONSTRAINT fk_news_category FOREIGN KEY (categoryId) REFERENCES category(id);
 
 CREATE TABLE comment (
 	id bigint NOT NULL PRIMARY KEY auto_increment,

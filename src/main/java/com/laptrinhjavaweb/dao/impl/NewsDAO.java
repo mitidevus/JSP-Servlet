@@ -1,7 +1,16 @@
 package com.laptrinhjavaweb.dao.impl;
 
-import com.laptrinhjavaweb.dao.INewsDAO;
+import java.util.List;
 
-public class NewsDAO implements INewsDAO {
-	
+import com.laptrinhjavaweb.dao.INewsDAO;
+import com.laptrinhjavaweb.mapper.NewsMapper;
+import com.laptrinhjavaweb.model.NewsModel;
+
+public class NewsDAO extends AbstractDAO<NewsModel> implements INewsDAO {
+
+	@Override
+	public List<NewsModel> findByCategoryId(Long categoryId) {
+		String sql = "SELECT * FROM news WHERE categoryId = ?";
+		return query(sql, new NewsMapper(), categoryId);
+	}
 }

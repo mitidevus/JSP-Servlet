@@ -13,6 +13,7 @@
 		<servlet.api.version>3.1.0</servlet.api.version>
 		<sitemesh.version>2.4.2</sitemesh.version>
 		<mysql.version>8.0.31</mysql.version>
+		<weld.servlet.version>1.1.0.Final</weld.servlet.version>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
@@ -43,6 +44,12 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>${mysql.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.jboss.weld.servlet</groupId>
+			<artifactId>weld-servlet</artifactId>
+			<version>${weld.servlet.version}</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
