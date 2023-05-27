@@ -38,13 +38,13 @@ public class AbstractDAO<T> implements GenericDAO<T> {
 			connection = getConnection();
 			statement = connection.prepareStatement(sql);
 
-			// Set parameters
+			// Tham số truyền vào, set các tham số vào statement để thực thi Query
 			setParameter(statement, parameters);
 
 			resultSet = statement.executeQuery(); // Result Set tượng trưng như table, phải chạy từng row để get column
-													// ra
+											      // ra
 			while (resultSet.next()) {
-				results.add(rowMapper.mapRow(resultSet));
+				results.add(rowMapper.mapRow(resultSet)); // rowMapper sẽ tạo đối tượng, gán các giá trị vào và trả về đối tượng đó
 			}
 			return results;
 		} catch (SQLException e) {
