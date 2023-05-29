@@ -39,4 +39,10 @@ public class NewsDAO extends AbstractDAO<NewsModel> implements INewsDAO {
 
 	}
 
+	@Override
+	public void delete(long id) {
+		String sql = "DELETE FROM news WHERE id = ?";
+		update(sql, id);
+	}
+
 }

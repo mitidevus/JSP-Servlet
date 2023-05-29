@@ -10,4 +10,6 @@ public interface INewsService {
 	NewsModel save(NewsModel newsModel);
 
 	NewsModel update(NewsModel updateNews);
+
+	void delete(long[] ids);
 }
