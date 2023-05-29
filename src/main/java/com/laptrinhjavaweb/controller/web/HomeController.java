@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.laptrinhjavaweb.model.NewsModel;
 import com.laptrinhjavaweb.service.ICategoryService;
 import com.laptrinhjavaweb.service.INewsService;
 
@@ -20,21 +19,10 @@ public class HomeController extends HttpServlet {
 	@Inject
 	private ICategoryService categoryService;
 
-	@Inject
-	private INewsService newsService;
-
 	private static final long serialVersionUID = 2686801510274002166L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String title = "BOX [ Solflare Lightning ]";
-		String content = "News content";
-		Long categoryId = 2L;
-		NewsModel newsModel = new NewsModel();
-		newsModel.setTitle(title);
-		newsModel.setContent(content);
-		newsModel.setCategoryId(categoryId);
-		newsService.save(newsModel);
 		request.setAttribute("categories", categoryService.findAll());
 		RequestDispatcher rd = request.getRequestDispatcher("/views/web/home.jsp"); // Truyền vào cái view muốn trả về
 		rd.forward(request, response);
