@@ -18,7 +18,8 @@ public class HttpUtil {
 	public <T> T toModel(Class<T> tClass) { // Truyền vào Java Class (Class của Model cần mapping)
 		try {
 			return new ObjectMapper().readValue(value, tClass); // ObjectMapper của thư viện jackson-databind
-			// readValue: từ String chuyển thành Model (tạo Class và mapping value rồi trả về Model đó)
+			// readValue: từ String chuyển thành Model (tạo Class và mapping value rồi trả
+			// về Model đó)
 			// writeValue: từ Model chuyển thành JSON
 		} catch (Exception e) {
 			System.out.print(e.getMessage());

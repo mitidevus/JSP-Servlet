@@ -38,8 +38,17 @@ public class NewsAPI extends HttpServlet {
 
 	protected void doPut(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		
+		ObjectMapper mapper = new ObjectMapper();
+		request.setCharacterEncoding("UTF-8"); // Set để lưu kiểu dữ liệu tiếng Việt
+		response.setContentType("application/json"); // Set kiểu dữ liệu trả về để Client hiểu được đó là JSON
+
+		// HttpUtil.of(request.getReader()) trả về HttpUtil nên .toModel để trả về Model
+		// tương ứng
+		NewsModel updateNews = HttpUtil.of(request.getReader()).toModel(NewsModel.class);
+		updateNews = newsService.update(updateNews);
+
+		mapper.writeValue(response.getOutputStream(), updateNews); // Chuyển thành JSON và trả về client
+
 	}
 
 //	protected void doDelete(HttpServletRequest request, HttpServletResponse response)
