@@ -12,6 +12,9 @@ public class AbstractModel<T> {
 	private String updatedBy;
 	private long[] ids;
 	private List<T> listResult = new ArrayList<>();
+	private int page;
+	private int maxPageItem;
+	private int totalPages;
 
 	public Long getId() {
 		return id;
@@ -68,4 +71,29 @@ public class AbstractModel<T> {
 	public void setListResult(List<T> listResult) {
 		this.listResult = listResult;
 	}
+
+	public int getPage() {
+		return page;
+	}
+
+	public void setPage(int page) {
+		this.page = page;
+	}
+
+	public int getMaxPageItem() {
+		return maxPageItem;
+	}
+
+	public void setMaxPageItem(int maxPageItem) {
+		this.maxPageItem = maxPageItem;
+	}
+
+	public int getTotalPages() {
+		return totalPages;
+	}
+
+	public void setTotalPages(int totalPages) {
+		this.totalPages = totalPages;
+	}
+
 }
