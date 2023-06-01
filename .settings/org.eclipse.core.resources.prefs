@@ -1,5 +1,6 @@
 eclipse.preferences.version=1
 encoding//src/main/java/com/laptrinhjavaweb/controller/admin/HomeController.java=UTF-8
+encoding//src/main/java/com/laptrinhjavaweb/controller/admin/NewsController.java=UTF-8
 encoding//src/main/java/com/laptrinhjavaweb/controller/admin/api/NewsAPI.java=UTF-8
 encoding//src/main/java/com/laptrinhjavaweb/controller/web/HomeController.java=UTF-8
 encoding//src/main/java/com/laptrinhjavaweb/dao/GenericDAO.java=UTF-8
@@ -9,3 +10,4 @@ encoding//src/main/java/com/laptrinhjavaweb/dao/impl/CategoryDAO.java=UTF-8
 encoding//src/main/java/com/laptrinhjavaweb/dao/impl/NewsDAO.java=UTF-8
 encoding//src/main/java/com/laptrinhjavaweb/service/impl/NewsService.java=UTF-8
 encoding//src/main/java/com/laptrinhjavaweb/utils/HttpUtil.java=UTF-8
+encoding/<project>=UTF-8

@@ -44,9 +44,9 @@ public class AbstractDAO<T> implements GenericDAO<T> {
 					statement.setInt(index, (Integer) parameter);
 				} else if (parameter instanceof Timestamp) {
 					statement.setTimestamp(index, (Timestamp) parameter);
-				} else if (parameter == null) {
-					statement.setNull(index, Types.NULL);
-				}
+				} 
+				// Không có else if của NULL vì khi trường hợp không có, get ra sẽ bị chết ở ngoài, không vào hàm được.
+				// Mặc định tất cả các parameters truyền vào đều phải khác NULL hết
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -103,8 +103,11 @@ public class AbstractDAO<T> implements GenericDAO<T> {
 			connection = getConnection();
 			connection.setAutoCommit(false);
 			statement = connection.prepareStatement(sql);
+			
 			setParameter(statement, parameters);
+			
 			statement.executeUpdate();
+			
 			connection.commit(); // Nếu bị lỗi sẽ rollback, nếu thành công thì update trong database
 		} catch (SQLException e) {
 			// Nếu như có thao tác trong SQL nào bị lỗi thì sẽ rollback lại
@@ -140,8 +143,11 @@ public class AbstractDAO<T> implements GenericDAO<T> {
 			connection = getConnection();
 			connection.setAutoCommit(false);
 			statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			
 			setParameter(statement, parameters);
+			
 			statement.executeUpdate();
+			
 			resultSet = statement.getGeneratedKeys(); // Lấy ra id, nhớ thêm Statement.RETURN_GENERATED_KEYS trong chỗ
 														// đối tượng PreparedStatement thực thi
 
