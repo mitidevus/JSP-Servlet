@@ -15,6 +15,7 @@ public class AbstractModel<T> {
 	private int page;
 	private int maxPageItem;
 	private int totalPages;
+	private int totalItems;
 
 	public Long getId() {
 		return id;
@@ -94,6 +95,14 @@ public class AbstractModel<T> {
 
 	public void setTotalPages(int totalPages) {
 		this.totalPages = totalPages;
+	}
+
+	public int getTotalItems() {
+		return totalItems;
+	}
+
+	public void setTotalItems(int totalItems) {
+		this.totalItems = totalItems;
 	}
 
 }

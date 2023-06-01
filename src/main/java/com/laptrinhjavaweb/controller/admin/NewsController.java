@@ -25,7 +25,24 @@ public class NewsController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		NewsModel model = new NewsModel();
-		model.setListResult(newsService.findAll());
+		String pageStr = request.getParameter("page");
+		String maxPageItemStr = request.getParameter("maxPageItem");
+
+		if (pageStr != null) {
+			model.setPage(Integer.parseInt(pageStr));
+		} else {
+			model.setPage(1);
+		}
+
+		if (maxPageItemStr != null) {
+			model.setMaxPageItem(Integer.parseInt(maxPageItemStr));
+		}
+
+		Integer offset = (model.getPage() - 1) * model.getMaxPageItem();
+		model.setListResult(newsService.findAll(offset, model.getMaxPageItem()));
+		model.setTotalItems(newsService.getTotalItems());
+		model.setTotalPages((int) Math.ceil((double) model.getTotalItems() / model.getMaxPageItem()));
+
 		request.setAttribute(SystemConstant.MODEL, model); // Controller sẽ đẩy dữ liệu từ Model ra View
 		RequestDispatcher rd = request.getRequestDispatcher("/views/admin/news/list.jsp"); // Truyền vào cái view muốn
 																							// trả về

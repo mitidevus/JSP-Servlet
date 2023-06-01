@@ -44,8 +44,9 @@ public class AbstractDAO<T> implements GenericDAO<T> {
 					statement.setInt(index, (Integer) parameter);
 				} else if (parameter instanceof Timestamp) {
 					statement.setTimestamp(index, (Timestamp) parameter);
-				} 
-				// Không có else if của NULL vì khi trường hợp không có, get ra sẽ bị chết ở ngoài, không vào hàm được.
+				}
+				// Không có else if của NULL vì khi trường hợp không có, get ra sẽ bị chết ở
+				// ngoài, không vào hàm được.
 				// Mặc định tất cả các parameters truyền vào đều phải khác NULL hết
 			}
 		} catch (SQLException e) {
@@ -59,6 +60,7 @@ public class AbstractDAO<T> implements GenericDAO<T> {
 		Connection connection = null;
 		PreparedStatement statement = null;
 		ResultSet resultSet = null;
+
 		try {
 			connection = getConnection();
 			statement = connection.prepareStatement(sql);
@@ -103,11 +105,11 @@ public class AbstractDAO<T> implements GenericDAO<T> {
 			connection = getConnection();
 			connection.setAutoCommit(false);
 			statement = connection.prepareStatement(sql);
-			
+
 			setParameter(statement, parameters);
-			
+
 			statement.executeUpdate();
-			
+
 			connection.commit(); // Nếu bị lỗi sẽ rollback, nếu thành công thì update trong database
 		} catch (SQLException e) {
 			// Nếu như có thao tác trong SQL nào bị lỗi thì sẽ rollback lại
@@ -143,11 +145,11 @@ public class AbstractDAO<T> implements GenericDAO<T> {
 			connection = getConnection();
 			connection.setAutoCommit(false);
 			statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			
+
 			setParameter(statement, parameters);
-			
+
 			statement.executeUpdate();
-			
+
 			resultSet = statement.getGeneratedKeys(); // Lấy ra id, nhớ thêm Statement.RETURN_GENERATED_KEYS trong chỗ
 														// đối tượng PreparedStatement thực thi
 
@@ -183,4 +185,42 @@ public class AbstractDAO<T> implements GenericDAO<T> {
 		return null;
 	}
 
+	@Override
+	public int count(String sql, Object... parameters) {
+		Connection connection = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
+		int count = 0;
+
+		try {
+			connection = getConnection();
+			statement = connection.prepareStatement(sql);
+
+			// Tham số truyền vào, set các tham số vào statement để thực thi Query
+			setParameter(statement, parameters);
+
+			resultSet = statement.executeQuery();
+
+			while (resultSet.next()) {
+				count = resultSet.getInt(1);
+			}
+			return count;
+		} catch (SQLException e) {
+			return 0;
+		} finally {
+			try {
+				if (connection != null) {
+					connection.close();
+				}
+				if (statement != null) {
+					statement.close();
+				}
+				if (resultSet != null) {
+					resultSet.close();
+				}
+			} catch (SQLException e) {
+				return 0;
+			}
+		}
+	}
 }

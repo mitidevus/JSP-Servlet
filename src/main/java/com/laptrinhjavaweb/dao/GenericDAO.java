@@ -11,4 +11,5 @@ public interface GenericDAO<T> {
 
 	Long insert(String sql, Object... parameters); // Thêm thì trả về id
 
+	int count(String sql, Object... parameters);
 }

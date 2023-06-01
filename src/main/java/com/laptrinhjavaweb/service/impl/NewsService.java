@@ -15,8 +15,8 @@ public class NewsService implements INewsService {
 	private INewsDAO newsDao;
 
 	@Override
-	public List<NewsModel> findAll() {
-		return newsDao.findAll();
+	public List<NewsModel> findAll(Integer offset, Integer limit) {
+		return newsDao.findAll(offset, limit);
 	}
 	
 	@Override
@@ -49,6 +49,11 @@ public class NewsService implements INewsService {
 			// Delete comment (khóa ngoại là newsId) trước, sau đó xóa news
 			newsDao.delete(id);
 		}
+	}
+
+	@Override
+	public int getTotalItems() {
+		return newsDao.getTotalItems();
 	}
 
 }

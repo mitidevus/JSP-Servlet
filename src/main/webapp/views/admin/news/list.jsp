@@ -1,16 +1,14 @@
-<%@include file="/common/taglib.jsp"%>
-
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@include file="/common/taglib.jsp"%> <%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>News List</title>
-</head>
-<body>
-	<form action="<c:url value='/admin/news'/>" id="formSubmit" method="get">
-		<div class="main-content">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>News List</title>
+    </head>
+    <body>
+            <div class="main-content">
+		<form action="<c:url value='/admin-news'/>" id="formSubmit" method="get">
 			<div class="main-content-inner">
 				<div class="breadcrumbs ace-save-state" id="breadcrumbs">
 					<ul class="breadcrumb">
@@ -34,7 +32,6 @@
 												</tr>
 											</thead>
 											<tbody>
-
 												<c:forEach var="item" items="${model.listResult}">
 													<tr>
 														<th scope="row">${item.id}</th>
@@ -43,11 +40,10 @@
 													</tr>
 												</c:forEach>
 											</tbody>
-
 										</table>
 										<ul class="pagination" id="pagination"></ul>
-										<input type="hidden" value="" id="page" name="page"/>
-										<input type="hidden" value="" id="maxPageItem" name="maxPageItem"/>
+										<input type="hidden" value="" id="page" name="page" /> <input
+											type="hidden" value="" id="maxPageItem" name="maxPageItem" />
 									</div>
 								</div>
 							</div>
@@ -55,28 +51,29 @@
 					</div>
 				</div>
 			</div>
-		</div>
-	</form>
-	<!-- /.main-content -->
+		</form>
+	</div>
+        <!-- /.main-content -->
 
-	<script>
-		var totalPages = ${model.totalPages};
-		var currentPage = ${model.page};
-		$(function() {
-			window.pagObj = $("#pagination").twbsPagination({
-				totalPages : totalPages,
-				visiblePages : 3,
-				startPage: currentPage,
-				onPageClick : function(event, page) {
-					//console.info(page + " (from options)");
-					${'#page'}.val(page);
-					${'#formSubmit'}.submit();
-					
-				},
-			}).on("page", function(event, page) {
-				console.info(page + " (from event listening)");
-			});
-		});
-	</script>
-</body>
+        <script>
+            var totalPages = ${model.totalPages};
+            var currentPage = ${model.page};
+            var limit = 2;
+
+            $(function() {
+            	window.pagObj = $("#pagination").twbsPagination({
+            		totalPages : totalPages,
+            		visiblePages : 10,
+            		startPage: currentPage,
+            		onPageClick : function(event, page) {
+            			if (currentPage != page) {
+            				$('#maxPageItem').val(limit);
+            				$('#page').val(page);
+            				$('#formSubmit').submit();
+            			}
+            		}
+            	});
+            });
+        </script>
+    </body>
 </html>
