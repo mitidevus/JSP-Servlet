@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import com.laptrinhjavaweb.dao.INewsDAO;
 import com.laptrinhjavaweb.model.NewsModel;
+import com.laptrinhjavaweb.paging.Pageble;
 import com.laptrinhjavaweb.service.INewsService;
 
 public class NewsService implements INewsService {
@@ -15,10 +16,10 @@ public class NewsService implements INewsService {
 	private INewsDAO newsDao;
 
 	@Override
-	public List<NewsModel> findAll(Integer offset, Integer limit, String sortName, String sortBy) {
-		return newsDao.findAll(offset, limit, sortName, sortBy);
+	public List<NewsModel> findAll(Pageble pageble) {
+		return newsDao.findAll(pageble);
 	}
-	
+
 	@Override
 	public List<NewsModel> findByCategoryId(Long categoryId) {
 		return newsDao.findByCategoryId(categoryId);

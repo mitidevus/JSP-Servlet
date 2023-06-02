@@ -5,19 +5,20 @@ import java.util.List;
 import com.laptrinhjavaweb.dao.INewsDAO;
 import com.laptrinhjavaweb.mapper.NewsMapper;
 import com.laptrinhjavaweb.model.NewsModel;
+import com.laptrinhjavaweb.paging.Pageble;
 
 public class NewsDAO extends AbstractDAO<NewsModel> implements INewsDAO {
 
 	@Override
-	public List<NewsModel> findAll(Integer offset, Integer limit, String sortName, String sortBy) {
+	public List<NewsModel> findAll(Pageble pageble) {
 		StringBuilder sql = new StringBuilder("SELECT * FROM news");
 
-		if (sortName != null && sortBy != null) {
-			sql.append(" ORDER BY " + sortName + " " + sortBy + "");
+		if (pageble.getSorter() != null) {
+			sql.append(" ORDER BY " + pageble.getSorter().getSortName() + " " + pageble.getSorter().getSortBy() + "");
 		}
 
-		if (offset != null && limit != null) {
-			sql.append(" LIMIT " + offset + ", " + limit + "");
+		if (pageble.getOffset() != null && pageble.getLimit() != null) {
+			sql.append(" LIMIT " + pageble.getOffset() + ", " + pageble.getLimit() + "");
 		}
 		return query(sql.toString(), new NewsMapper());
 	}

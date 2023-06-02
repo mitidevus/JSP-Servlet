@@ -72,7 +72,7 @@ pageEncoding="UTF-8"%>
             				$('#maxPageItem').val(limit);
             				$('#page').val(page);
             				$('#sortName').val('title');
-            				$('#shortBy').val('desc');
+            				$('#sortBy').val('desc');
             				$('#formSubmit').submit();
             			}
             		}

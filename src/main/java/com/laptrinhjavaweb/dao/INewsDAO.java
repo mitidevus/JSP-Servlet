@@ -3,9 +3,10 @@ package com.laptrinhjavaweb.dao;
 import java.util.List;
 
 import com.laptrinhjavaweb.model.NewsModel;
+import com.laptrinhjavaweb.paging.Pageble;
 
 public interface INewsDAO extends GenericDAO<NewsModel> {
-	List<NewsModel> findAll(Integer offset, Integer limit, String sortName, String sortBy);
+	List<NewsModel> findAll(Pageble pageble);
 
 	NewsModel findOne(Long id);
 
