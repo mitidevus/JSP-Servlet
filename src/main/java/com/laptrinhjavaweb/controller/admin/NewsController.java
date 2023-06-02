@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.laptrinhjavaweb.constant.SystemConstant;
 import com.laptrinhjavaweb.model.NewsModel;
 import com.laptrinhjavaweb.service.INewsService;
+import com.laptrinhjavaweb.utils.FormUtil;
 
 @WebServlet(urlPatterns = { "/admin-news" })
 public class NewsController extends HttpServlet {
@@ -24,19 +25,7 @@ public class NewsController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		NewsModel model = new NewsModel();
-		String pageStr = request.getParameter("page");
-		String maxPageItemStr = request.getParameter("maxPageItem");
-
-		if (pageStr != null) {
-			model.setPage(Integer.parseInt(pageStr));
-		} else {
-			model.setPage(1);
-		}
-
-		if (maxPageItemStr != null) {
-			model.setMaxPageItem(Integer.parseInt(maxPageItemStr));
-		}
+		NewsModel model = FormUtil.toModel(NewsModel.class, request);
 
 		Integer offset = (model.getPage() - 1) * model.getMaxPageItem();
 		model.setListResult(newsService.findAll(offset, model.getMaxPageItem()));
