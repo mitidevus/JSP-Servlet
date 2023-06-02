@@ -9,11 +9,19 @@ import com.laptrinhjavaweb.model.NewsModel;
 public class NewsDAO extends AbstractDAO<NewsModel> implements INewsDAO {
 
 	@Override
-	public List<NewsModel> findAll(Integer offset, Integer limit) {
-		String sql = "SELECT * FROM news LIMIT ?, ?";
-		return query(sql, new NewsMapper(), offset, limit);
+	public List<NewsModel> findAll(Integer offset, Integer limit, String sortName, String sortBy) {
+		StringBuilder sql = new StringBuilder("SELECT * FROM news");
+
+		if (sortName != null && sortBy != null) {
+			sql.append(" ORDER BY " + sortName + " " + sortBy + "");
+		}
+
+		if (offset != null && limit != null) {
+			sql.append(" LIMIT " + offset + ", " + limit + "");
+		}
+		return query(sql.toString(), new NewsMapper());
 	}
-	
+
 	@Override
 	public NewsModel findOne(Long id) {
 		String sql = "SELECT * FROM news WHERE id = ?";
@@ -29,9 +37,11 @@ public class NewsDAO extends AbstractDAO<NewsModel> implements INewsDAO {
 
 	@Override
 	public Long save(NewsModel newsModel) {
-		// Dùng StringBuilder để cộng chuỗi thay vì String là do để tránh dư thừa vùng nhớ
+		// Dùng StringBuilder để cộng chuỗi thay vì String là do để tránh dư thừa vùng
+		// nhớ
 		// String sau khi += thì sẽ tạo vùng nhớ mới
-		// StringBuilder sau khi .append() thì sẽ cộng thêm vào vùng nhớ ban đầu, không tạo vùng nhớ mới
+		// StringBuilder sau khi .append() thì sẽ cộng thêm vào vùng nhớ ban đầu, không
+		// tạo vùng nhớ mới
 		StringBuilder sql = new StringBuilder("INSERT INTO news (title, content,");
 		sql.append(" thumbnail, shortDescription, categoryId, createdAt, createdBy,)");
 		sql.append(" VALUES(?, ?, ?, ?, ?, ?, ?)");
@@ -62,6 +72,5 @@ public class NewsDAO extends AbstractDAO<NewsModel> implements INewsDAO {
 		String sql = "SELECT count(*) FROM news";
 		return count(sql);
 	}
-
 
 }

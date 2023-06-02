@@ -27,8 +27,8 @@ public class NewsController extends HttpServlet {
 			throws ServletException, IOException {
 		NewsModel model = FormUtil.toModel(NewsModel.class, request);
 
-		Integer offset = (model.getPage() - 1) * model.getMaxPageItem();
-		model.setListResult(newsService.findAll(offset, model.getMaxPageItem()));
+		//Integer offset = (model.getPage() - 1) * model.getMaxPageItem();
+		model.setListResult(newsService.findAll(offset, model.getMaxPageItem(), model.getSortName(), model.getSortBy()));
 		model.setTotalItems(newsService.getTotalItems());
 		model.setTotalPages((int) Math.ceil((double) model.getTotalItems() / model.getMaxPageItem()));
 
